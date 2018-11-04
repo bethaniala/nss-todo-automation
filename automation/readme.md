@@ -16,7 +16,7 @@ In the terminal from your local copy of the nss-todo-automation (main nss-todo-a
 
 <h3> Pre-conditions</h3>
 
-The tests only run if:
+The tests will pass only if:
 <ul>
 <li>Your app is running on: http://localhost:8080/nss-todo-automation/
 <li>The todo.list hasn't been modified from the original in this repo and has the below tasks:</li>
