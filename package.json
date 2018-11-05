@@ -1,0 +1,16 @@
+{
+  "name": "@bethaniala/nss-todo-automation",
+  "private": true,
+  "dependencies": {
+    "wdio-selenium-standalone-service": "^0.0.10"
+  },
+  "scripts": {
+    "test": "wdio"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "wdio-mocha-framework": "^0.6.4",
+    "wdio-spec-reporter": "^0.1.5",
+    "webdriverio": "^4.14.0"
+  }
+}

@@ -1,1 +1,197 @@
-//please add your test cases here.
+// Testing the API Calls (service layer)
+
+* T01: Delete Category
+Pre-condition: set pre-defined list of categories: {c1, c2, c3, c4}
+Test: call to delete category service with argument c2
+Expected Results: category c2 is removed from list, a call to get category list
+function returns {c1, c3, c4}
+
+* T02: Add Category, no color
+Pre-condition: set pre-defined list of categories: {c1, c2, c3, c4}
+Test: call to add category api with arguments: name= c5, color= none
+Expected Results: category c5 is added to the list, a call to get category list
+function returns correct list {c1, c2, c3, c4, c5}. c5 color should be none
+
+* T03: Add Category, with color not used already
+Pre-condition: set pre-defined list of categories: {c1, c2, c3, c4}. None of them
+are using the color blue
+Test: call to add category api with arguments: name= c5, color= blue
+Expected Results: category c5 is added to the list, a call to get category list
+returns correct list {c1, c2, c3, c4, c5}. c5 color should be blue
+
+* T03: Add Category, with color already used in another category
+Pre-condition: set pre-defined list of categories and one of the categories use the
+blue color: {c1, c2, c3, c4}
+Test: call to add category api with arguments: name= c5, color= blue
+Expected Results: category c5 is not added because another category is using blue
+
+* T05: Add Todo item, without date or category
+Pre-condition: set list of categories: {c1, c2, c3, c4}; set list of todos: {td1,
+td2, td3}
+Test: call to add todo api with arguments: name= td4, category= none, date=none
+Expected Results: todo td4 is added with no category or date.
+
+* T06: Add Todo item, with category
+Pre-condition: set list of categories: {c1, c2, c3, c4}; set list of todos: {td1,
+td2, td3}
+Test: call to add todo api with arguments: name= td4, category= c1, date=none
+Expected Results: todo td4 is added with the correct category c1 and no date.
+
+* T07: Add Todo item with an existing name
+Pre-condition: set list of categories: {c1, c2, c3, c4}; set list of todos: {td1,
+td2, td3}
+Test: call to add todo api with arguments: name= td1
+Expected Results: todo td1 IS NOT added because another item with same name
+already exists
+
+* T08: Add Todo item, with date
+Pre-condition: set list of categories: {c1, c2, c3, c4}; set list of todos: {td1,
+td2, td3}
+Test: call to add todo api with arguments: name= td4, category= c1, due date=valid date
+Expected Results: todo td4 is added with the correct category c1 and date.
+
+* T09: Add Todo item, with invalid date
+Pre-condition: set list of categories: {c1, c2, c3, c4}; set list of todos: {td1,
+td2, td3}
+Test: call to add todo api with arguments: name= td4, category= c1, due date=invalid date
+Expected Results: todo td4 added with the correct category c1 and no due date.
+
+* T10: Remove Todo item
+Pre-condition: pre-defined list of todos: {td1, td2, td3}
+Test: call to remove todo api with arguments: name= td1
+Expected Results: todo td1 is removed from the list.
+
+* T11: Complete Todo item
+Pre-condition: pre-defined list of todos: {td1, td2, td3}
+Test: call to complete todo api with arguments: name= td1
+Expected Results: todo td1 is set to completed
+
+// Testing the UI
+* T12: Check all categories and todo tasks show up
+Pre-condition: pre-defined list of todos {td1, td2, td3} and categories {c1, c2}
+Test: - open the app in the browser.
+      - Check that all the todo tasks are displayed with the correct color and category.
+      - Check that all categories are displayed with the correct color
+
+* T13: Add new category with no color
+Pre-condition: pre-defined list of todos {td1, td2, td3} and categories {c1, c2}
+Test: open the app in the browser. Add new category name= c3, colour= none
+Expected Results: - 3 categories display in the list of categories: overdue, c1, c2, c3
+                  - the 3 categories text have the correct text colour, c3 shows as black (no colour selected)
+
+* T14: Add new category with color (not used by another category)
+Pre-condition: pre-defined list of todos {td1, td2, td3} and categories {c1, c2}
+Test: open the app in the browser. Add new category name= c4, colour= blue
+Expected Results: - 3 categories display in the list of categories: overdue, c1, c2, c4
+                  - the 3 categories text have the correct text colour, c4 shows as blue
+
+* T15: Add new category with color (used by another category)
+Pre-condition: pre-defined list of todos {td1, td2, td3} and categories {c1, c2}
+Test:   - open the app in the browser
+        - Add new category name= c5, colour= green
+        - Check message indicating this colour is already used and with options
+        to rename the category, add new category or do nothing
+        - Click do nothing
+        - App goes back to main page, c5 doesn't show in the list of categories
+Expected Results: when entering a new category with an already used colour, the
+user has the option to: Rename the category, Add the category with this colour or Nevermind.
+When Nevermind is selected the new category is not added.
+
+* T16: Rename a category
+Pre-condition: pre-defined list of todos {td1, td2, td3} and categories {c1, c2}
+Test:   - open the app in the browser
+        - Add new category name= c5, colour= green
+        - Check message indicating this colour is already used in c1 and with options
+        to rename the category, add new category or nevermind
+        - Click Rename
+        - App goes back to main page, c1 is rename to c5
+Expected Results: when entering a new category with an already used colour, the
+user has the option to: Rename the category, Add the category with this colour or Nevermind.
+When Rename is selected the category using this colour is renamed
+
+* T17: Add new category with color (used by another category)
+Pre-condition: pre-defined list of todos {td1, td2, td3} and categories {c1, c2}
+Test:   - open the app in the browser
+        - Add new category name= c5, colour= green
+        - Check message indicating this colour is already used in c1 and with options
+        to rename the category, add the category with this colour or nevermind
+        - Click add the category with this colour
+        - App goes back to main page, c5 is added with colour green and c1 has no colour (shows in black)
+Expected Results: when entering a new category with an already used colour, the
+user has the option to: Rename the category, Add the category with this colour or Nevermind.
+When Add the category is selected the new category is added with that colour and the other category
+colour changes to none(black)
+
+* T18: Add new todo task without category and due date
+Test: - open the app in the browser
+      - enter a new task name and click Add
+Expected Results: the todo task is displayed with the new name, in black color and no due date
+
+* T19: Add new todo task without category and with due date in the past
+Test: - open the app in the browser
+      - enter a new task name, select a past due date and click Add
+Expected Results: the todo task is displayed with the new name, in red colour to show that is
+overdue and the correct due date
+
+* T20: Add new todo task without category and with due date in the future
+Test: - open the app in the browser
+      - enter a new task name, select a future due date and click Add
+Expected Results: the todo task is displayed with the correct name, in black colour and the correct due date
+
+* T21: Add new todo task with category and due date in the Future
+Test: - open the app in the browser
+      - enter a new task name, select an existing category, select a future due date and click Add
+Expected Results: the todo task is displayed with the correct name, in the expected category colour
+and the correct due date
+
+* T22: Add new todo task with category and no due date
+Test: - open the app in the browser
+      - enter a new task name, select an existing category, and click Add
+Expected Results: the todo task is displayed with the correct name, in the expected category colour
+and no due date
+
+* T23: Select one not completed, not overdue todo task and click on Complete
+Test: - open the app in the browser
+      - select an existing task that is not overdue or completed and click Complete
+Expected Results: the todo task is displayed with the correct name strikedthrough, in the expected category colour
+and due date
+
+* T24: Select one completed task and click on Complete
+Test: - open the app in the browser
+      - select an existing task that is completed and click Complete
+Expected Results: the todo task is displayed with the correct name, in the expected category colour
+and due date, and without the strikedthrough
+
+* T25: Select one not completed and overdue task and click on Complete
+Test: - open the app in the browser
+      - select an existing task that is not completed and is overdue. Click Complete
+Expected Results: the todo task is displayed with the correct name. The task is not overdue anymore,
+and the name has a strikedthrough
+
+* T26: Select one overdue task and click on Remove
+Test: - open the app in the browser
+      - select an existing task that is overdue. Click Remove
+Expected Results: the todo task is removed and doesn't show in the List
+
+* T27: Select one completed task and click on Remove
+Test: - open the app in the browser
+      - select an existing task that is completed. Click Remove
+Expected Results: the todo task is removed and doesn't show in the List
+
+* T28: Select one not completed, not overdue task and click on Remove
+Test: - open the app in the browser
+      - select an existing task that is not completed and not overdue. Click Remove
+Expected Results: the todo task is removed and doesn't show in the List
+
+* T29: Edit existing Todo item - update name, category and date
+Pre-condition: pre-defined list of todos: {td1, td2, td3}
+Test: - open the app in the browser
+      - click in one of the todo tasks and update its name, category and date(future date)
+Expected Results: the todo task is displayed with the new name, color and due date
+
+* T30: Edit existing Todo item - update name to blank
+Pre-condition: pre-defined list of todos: {td1, td2, td3}
+Test: - open the app in the browser
+      - click in one of the todo tasks and update its name to ""
+Expected Results: todo task is not updated and following error message displays:
+"You didn't write anything in the TODO part. Use the "Remove" button to delete a todo item"
